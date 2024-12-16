@@ -332,7 +332,7 @@ class CodeWriter:
     def write_function(self, function_name: str, num_local_vars: int):
         self.file.write(f"// function {function_name} {num_local_vars}\n")
         self.file.write(f"({function_name})\n")
-        for i in range(num_local_vars):
+        for i in range(num_local_vars + 1):
             self.write_push_pop('C_PUSH', 'constant', 0)
 
     def write_call(self, function_name: str, num_args: int):
@@ -364,7 +364,8 @@ class CodeWriter:
         self.file.write("D=M\n")
         self.file.write("@LCL\n")
         self.file.write("M=D\n")
-        self.write_go_to(self,function_name)
+        self.file.write(f"@{function_name}\n")
+        self.file.write("0;JMP\n")
         self.file.write(f"({function_name}$ret.1)\n")
 
     def write_return(self):
@@ -399,9 +400,11 @@ class CodeWriter:
             self.file.write(f"@{string}\n")
             self.file.write("M=D\n")
             i +=1
-        self.write_go_to(self,"retAddr")
+        self.file.write(f"@retAddr\n")
+        self.file.write("0;JMP\n")
 
-    def close(self):
+
+def close(self):
         """
         Closes the output file.
         """

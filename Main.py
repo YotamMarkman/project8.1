@@ -27,12 +27,13 @@ class Main:
             command_type = self.input_file.command_type().value
             if command_type == 'C_ARITHMETIC':
                 self.output_file.write_arithmetic(self.input_file.arg1())
+
             elif command_type == 'C_PUSH' or command_type == 'C_POP':
                 self.output_file.write_push_pop(
                     command_type,
                     self.input_file.arg1(),
-                    self.input_file.arg2(),
-                )
+                    self.input_file.arg2(),)
+
             elif command_type == 'C_LABEL':
                 self.output_file.write_label(self.input_file.arg1())
 
@@ -47,6 +48,7 @@ class Main:
 
             elif command_type == 'C_RETURN':
                 self.output_file.write_return()
+
             else:
                 self.output_file.write_call(self.input_file.arg1(), self.input_file.arg2())
 
@@ -60,13 +62,6 @@ if __name__ == "__main__":
 
 
 
-
-self.output_file.write_arithmetic(self.input_file.arg1()) if command_type == 'C_ARITHMETIC' else (
-    self.output_file.write_push_pop(
-        command_type,
-        self.input_file.arg1(),
-        self.input_file.arg2(),
-    ))
 
 
 
