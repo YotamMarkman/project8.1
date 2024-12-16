@@ -13,7 +13,7 @@ class CodeWriter:
         self.file = open(normalized_path, 'w')
         self.jump_loop = 0
 
-    def setFileName (self, fileName: str):
+    def set_file_name (self, fileName: str):
 
         pass
 
@@ -314,25 +314,97 @@ class CodeWriter:
                     self.file.write("@4\n")
                     self.file.write("M=D\n")
 
-    def writeLabel(self, label: str):
-        pass
+    def write_label(self, label: str):
+        self.file.write(f"({label})\n")
 
-    def writeGoto(self, label: str):
-        pass
+    def write_go_to(self, label: str):
+        self.file.write(f"@{label}\n")
+        self.file.write("0;JMP\n")
 
-    def writeIf(self, label: str):
-        pass
+    def write_if(self, label: str):
+        self.file.write("@SP\n")
+        self.file.write("M=M-1")
+        self.file.write("A=M\n")
+        self.file.write("D=M\n")
+        self.file.write(f"@{label}\n")
+        self.file.write("D;JNE\n")
 
-    def writeFunction(self, function_name: str, num_local_vars: int):
-        pass
+    def write_function(self, function_name: str, num_local_vars: int):
+        self.file.write(f"// function {function_name} {num_local_vars}\n")
+        self.file.write(f"({function_name})\n")
+        for i in range(num_local_vars + 1):
+            self.write_push_pop('C_PUSH', 'constant', 0)
 
-    def writeCall(self, function_name: str, num_args: int):
-        pass
+    def write_call(self, function_name: str, num_args: int):
+        self.file.write(f"// call {function_name} {num_args}\n")
+        self.file.write(f"@{function_name}$ret.1\n")
+        self.file.write("D=A\n")
+        self.file.write("@SP\n")
+        self.file.write("A=M\n")
+        self.file.write("M=D\n")
+        self.file.write("@SP\n")
+        self.file.write("M=M+1\n")
+        for string in ["LCL", "ARG", "THIS", "THAT"]:
+            self.file.write(f"@{string}\n")
+            self.file.write("D=M\n")
+            self.file.write("@SP\n")
+            self.file.write("A=M\n")
+            self.file.write("M=D\n")
+            self.file.write("@SP\n")
+            self.file.write("M=M+1\n")
+        self.file.write("@SP\n")
+        self.file.write("D=M\n")
+        self.file.write("@5\n")
+        self.file.write("D=D-A\n")
+        self.file.write(f"@{num_args}\n")
+        self.file.write("D=D-A\n")
+        self.file.write("@ARG\n")
+        self.file.write("M=D\n")
+        self.file.write("@SP\n")
+        self.file.write("D=M\n")
+        self.file.write("@LCL\n")
+        self.file.write("M=D\n")
+        self.file.write(f"@{function_name}\n")
+        self.file.write("0;JMP\n")
+        self.file.write(f"({function_name}$ret.1)\n")
 
-    def writeReturn(self):
-        pass
+    def write_return(self):
+        self.file.write("// return call")
+        self.file.write("@LCL\n")
+        self.file.write("D=M\n")
+        self.file.write("@endFrame\n")
+        self.file.write("M=D\n")
+        self.file.write("@endFrame\n")
+        self.file.write("D=M\n")
+        self.file.write("@5\n")
+        self.file.write("A=D-A\n")
+        self.file.write("D=M\n")
+        self.file.write("@retAddr\n")
+        self.file.write("M=D\n")
+        self.file.write("@SP\n")
+        self.file.write("AM=M-1\n")
+        self.file.write("D=M\n")
+        self.file.write("@ARG\n")
+        self.file.write("A=M\n")
+        self.file.write("M=D\n")
+        self.file.write("@ARG\n")
+        self.file.write("D=M+1\n")
+        self.file.write("@SP\n")
+        self.file.write("M=D\n")
+        i = 1
+        for string in ["THAT", "THIS", "ARG", "LCL"]:
+            self.file.write("@endFrame\n")
+            self.file.write("D=M\n")
+            self.file.write(f"{i}\n")
+            self.file.write("D=D-A\n")
+            self.file.write(f"@{string}\n")
+            self.file.write("M=D\n")
+            i +=1
+        self.file.write(f"@retAddr\n")
+        self.file.write("0;JMP\n")
 
-    def close(self):
+
+def close(self):
         """
         Closes the output file.
         """
