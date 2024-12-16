@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="Changes">
+    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="passed one basic">
+      <change afterPath="$PROJECT_DIR$/FibonacciSeries.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWriter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.py" afterDir="false" />
     </list>
@@ -79,7 +79,9 @@
       <workItem from="1734262739317" duration="12274000" />
       <workItem from="1734343246705" duration="10335000" />
       <workItem from="1734365912735" duration="966000" />
-      <workItem from="1734367161230" duration="1940000" />
+      <workItem from="1734367161230" duration="2310000" />
+      <workItem from="1734372682701" duration="1363000" />
+      <workItem from="1734385687019" duration="1567000" />
     </task>
     <task id="LOCAL-00001" summary="Parser.py API">
       <option name="closed" value="true" />
@@ -129,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734367025022</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="passed one basic">
+      <option name="closed" value="true" />
+      <created>1734369255724</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1734369255724</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,7 +162,8 @@
     <MESSAGE value="Main.py" />
     <MESSAGE value="Main.py + CodeWriter.py" />
     <MESSAGE value="Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes" />
+    <MESSAGE value="passed one basic" />
+    <option name="LAST_COMMIT_MESSAGE" value="passed one basic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
