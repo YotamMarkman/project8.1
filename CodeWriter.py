@@ -319,7 +319,7 @@ class CodeWriter:
         self.file.write(f"({function_name})\n")
         if num_local_vars is None:
             num_local_vars = 0
-        for i in range(num_local_vars):
+        for i in range(num_local_vars+1):
             self.file.write("@LCL\n")
             self.file.write("D=M\n")
             self.file.write(f"@{i}")
@@ -411,7 +411,7 @@ class CodeWriter:
         self.file.write(f"@retAddr\n")
         self.file.write("0;JMP\n")
 
-    def write_bootstrap(self):
+    def boot_strap(self):
         self.file.write("@256\n")
         self.file.write("D=A\n")
         self.file.write("@SP\n")

@@ -22,10 +22,11 @@ class Main:
             self.output_file = CodeWriter(self.path)
 
     def main(self):
-        self.output_file.write_bootstrap()
+        #self.output_file.boot_strap()
         while self.input_file.has_more_lines():
             self.input_file.advance()
             command_type = self.input_file.command_type().value
+            print(f"------", {command_type} ,"-------")
             if command_type == 'C_ARITHMETIC':
                 self.output_file.write_arithmetic(self.input_file.arg1())
 

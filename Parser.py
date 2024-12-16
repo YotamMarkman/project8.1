@@ -74,9 +74,9 @@ class Parser:
             return Constant.C_PUSH
         elif "label" in line:
             return Constant.C_LABEL
-        elif "goto" in line:
+        elif "if_goto" in line:
             return Constant.C_GOTO
-        elif "if-goto" in line:
+        elif "goto" in line:
             return Constant.C_IF
         elif "function" in line:
             return Constant.C_FUNCTION
