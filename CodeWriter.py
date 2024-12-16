@@ -12,10 +12,10 @@ class CodeWriter:
         self.file_base_name = os.path.splitext(os.path.basename(output_file))[0]
         self.file = open(normalized_path, 'w')
         self.jump_loop = 0
+        self.label_counter = 0
 
     def set_file_name (self, fileName: str):
-
-        pass
+        fileName = fileName[:fileName.index('.')]
 
     def write_add(self):
         self.file.write(
@@ -314,6 +314,20 @@ class CodeWriter:
                     self.file.write("@4\n")
                     self.file.write("M=D\n")
 
+    def write_function(self, function_name: str, num_local_vars: int):
+        self.file.write(f"// function {function_name} {num_local_vars}\n")
+        self.file.write(f"({function_name})\n")
+        if num_local_vars is None:
+            num_local_vars = 0
+        for i in range(num_local_vars):
+            self.file.write("@LCL\n")
+            self.file.write("D=M\n")
+            self.file.write(f"@{i}")
+            self.file.write("A=D+A\n")
+            self.file.write("M=0\n")
+            self.file.write("@SP\n")
+            self.file.write("M=M+1\n")
+
     def write_label(self, label: str):
         self.file.write(f"({label})\n")
 
@@ -323,21 +337,16 @@ class CodeWriter:
 
     def write_if(self, label: str):
         self.file.write("@SP\n")
-        self.file.write("M=M-1")
+        self.file.write("M=M-1\n")
         self.file.write("A=M\n")
         self.file.write("D=M\n")
         self.file.write(f"@{label}\n")
         self.file.write("D;JNE\n")
 
-    def write_function(self, function_name: str, num_local_vars: int):
-        self.file.write(f"// function {function_name} {num_local_vars}\n")
-        self.file.write(f"({function_name})\n")
-        for i in range(num_local_vars + 1):
-            self.write_push_pop('C_PUSH', 'constant', 0)
-
     def write_call(self, function_name: str, num_args: int):
+        self.label_counter += 1
         self.file.write(f"// call {function_name} {num_args}\n")
-        self.file.write(f"@{function_name}$ret.1\n")
+        self.file.write(f"@{function_name}$ret.{self.label_counter}\n")
         self.file.write("D=A\n")
         self.file.write("@SP\n")
         self.file.write("A=M\n")
@@ -366,7 +375,7 @@ class CodeWriter:
         self.file.write("M=D\n")
         self.file.write(f"@{function_name}\n")
         self.file.write("0;JMP\n")
-        self.file.write(f"({function_name}$ret.1)\n")
+        self.file.write(f"({function_name}$ret.{self.label_counter})\n")
 
     def write_return(self):
         self.file.write("// return call")
@@ -391,20 +400,19 @@ class CodeWriter:
         self.file.write("D=M+1\n")
         self.file.write("@SP\n")
         self.file.write("M=D\n")
-        i = 1
-        for string in ["THAT", "THIS", "ARG", "LCL"]:
+        for i, string in enumerate(["THAT", "THIS", "ARG", "LCL"], start=1):
             self.file.write("@endFrame\n")
             self.file.write("D=M\n")
-            self.file.write(f"{i}\n")
-            self.file.write("D=D-A\n")
+            self.file.write(f"@{i}\n")
+            self.file.write("A=D-A\n")
+            self.file.write("D=M\n")
             self.file.write(f"@{string}\n")
             self.file.write("M=D\n")
-            i +=1
         self.file.write(f"@retAddr\n")
         self.file.write("0;JMP\n")
 
 
-def close(self):
+    def close(self):
         """
         Closes the output file.
         """
