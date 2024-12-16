@@ -25,14 +25,49 @@ class Main:
         while self.input_file.has_more_lines():
             self.input_file.advance()
             command_type = self.input_file.command_type().value
-            self.output_file.write_arithmetic(self.input_file.arg1()) if command_type == 'C_ARITHMETIC' else (
+            if command_type == 'C_ARITHMETIC':
+                self.output_file.write_arithmetic(self.input_file.arg1())
+            elif command_type == 'C_PUSH' or command_type == 'C_POP':
                 self.output_file.write_push_pop(
                     command_type,
                     self.input_file.arg1(),
                     self.input_file.arg2(),
-                ))
+                )
+            elif command_type == 'C_LABEL':
+                self.output_file.write_label(self.input_file.arg1())
+
+            elif command_type == 'C_GOTO':
+                self.output_file.write_go_to(self.input_file.arg1())
+
+            elif command_type == 'C_IF':
+                self.output_file.write_if(self.input_file.arg1())
+
+            elif command_type == 'C_FUNCTION':
+                self.output_file.write_function(self.input_file.arg1(), self.input_file.arg2())
+
+            elif command_type == 'C_RETURN':
+                self.output_file.write_return()
+            else:
+                self.output_file.write_call(self.input_file.arg1(), self.input_file.arg2())
+
         self.output_file.close()
 
 if __name__ == "__main__":
     translator = Main()
     translator.main()
+
+
+
+
+
+
+self.output_file.write_arithmetic(self.input_file.arg1()) if command_type == 'C_ARITHMETIC' else (
+    self.output_file.write_push_pop(
+        command_type,
+        self.input_file.arg1(),
+        self.input_file.arg2(),
+    ))
+
+
+
+

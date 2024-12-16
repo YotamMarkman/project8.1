@@ -368,7 +368,38 @@ class CodeWriter:
         self.file.write(f"({function_name}$ret.1)\n")
 
     def write_return(self):
-
+        self.file.write("// return call")
+        self.file.write("@LCL\n")
+        self.file.write("D=M\n")
+        self.file.write("@endFrame\n")
+        self.file.write("M=D\n")
+        self.file.write("@endFrame\n")
+        self.file.write("D=M\n")
+        self.file.write("@5\n")
+        self.file.write("A=D-A\n")
+        self.file.write("D=M\n")
+        self.file.write("@retAddr\n")
+        self.file.write("M=D\n")
+        self.file.write("@SP\n")
+        self.file.write("AM=M-1\n")
+        self.file.write("D=M\n")
+        self.file.write("@ARG\n")
+        self.file.write("A=M\n")
+        self.file.write("M=D\n")
+        self.file.write("@ARG\n")
+        self.file.write("D=M+1\n")
+        self.file.write("@SP\n")
+        self.file.write("M=D\n")
+        i = 1
+        for string in ["THAT", "THIS", "ARG", "LCL"]:
+            self.file.write("@endFrame\n")
+            self.file.write("D=M\n")
+            self.file.write(f"{i}\n")
+            self.file.write("D=D-A\n")
+            self.file.write(f"@{string}\n")
+            self.file.write("M=D\n")
+            i +=1
+        self.write_go_to(self,"retAddr")
 
     def close(self):
         """
