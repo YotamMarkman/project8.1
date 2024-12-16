@@ -411,6 +411,12 @@ class CodeWriter:
         self.file.write(f"@retAddr\n")
         self.file.write("0;JMP\n")
 
+    def sys_init(self):
+        self.file.write("@256\n")
+        self.file.write("D=A\n")
+        self.file.write("@SP\n")
+        self.file.write("M=D\n")
+        self.write_call("Sys.init", 0)
 
     def close(self):
         """
