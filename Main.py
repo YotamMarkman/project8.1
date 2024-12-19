@@ -25,7 +25,9 @@ class Main:
         self.output_file.sys_init()
         while self.input_file.has_more_lines():
             self.input_file.advance()
+            print(self.input_file.has_more_lines())
             command_type = self.input_file.command_type().value
+            print("---------",command_type,"---------")
             if command_type == 'C_ARITHMETIC':
                 self.output_file.write_arithmetic(self.input_file.arg1())
 
@@ -52,7 +54,6 @@ class Main:
 
             else:
                 self.output_file.write_call(self.input_file.arg1(), self.input_file.arg2())
-
         self.output_file.close()
 
 if __name__ == "__main__":

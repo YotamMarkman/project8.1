@@ -39,7 +39,9 @@ class Parser:
         """
         if self.buffer is None:
             pos = self.file.tell()
-            self.buffer = self.file.readline().strip()
+            self.buffer = self.file.readline()
+            if self.buffer == "":
+                return False
             self.file.seek(pos)
         return bool(self.buffer)
 
@@ -74,9 +76,9 @@ class Parser:
             return Constant.C_PUSH
         elif "label" in line:
             return Constant.C_LABEL
-        elif "goto" in line:
+        elif "if_goto" in line:
             return Constant.C_GOTO
-        elif "if-goto" in line:
+        elif "goto" in line:
             return Constant.C_IF
         elif "function" in line:
             return Constant.C_FUNCTION
@@ -95,7 +97,7 @@ class Parser:
         :return: The first argument of the command as a string.
         """
         if self.command_type() == Constant.C_ARITHMETIC:
-            return self.current_command
+            return self.current_command.split()[0]
         return self.current_command.split()[1].split()[0]
 
     def arg2(self) -> int:
