@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="passed one basic">
-      <change afterPath="$PROJECT_DIR$/FibonacciSeries.vm" afterDir="false" />
+    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="Fixed a few bugs still only one test passed">
+      <change afterPath="$PROJECT_DIR$/prob.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodeWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWriter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +60,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yotam\OneDrive\Documents\Recihmann\Computer_Science_Yr_2\Sem_1\Digital_Systems\project8.1\Passed_Tests" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -81,7 +86,10 @@
       <workItem from="1734365912735" duration="966000" />
       <workItem from="1734367161230" duration="2310000" />
       <workItem from="1734372682701" duration="1363000" />
-      <workItem from="1734385687019" duration="1567000" />
+      <workItem from="1734385687019" duration="4034000" />
+      <workItem from="1734432397736" duration="9000" />
+      <workItem from="1734448917368" duration="2503000" />
+      <workItem from="1734522998349" duration="72000" />
     </task>
     <task id="LOCAL-00001" summary="Parser.py API">
       <option name="closed" value="true" />
@@ -139,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734369255724</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed a few bugs still only one test passed">
+      <option name="closed" value="true" />
+      <created>1734387550591</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1734387550591</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +179,8 @@
     <MESSAGE value="Main.py + CodeWriter.py" />
     <MESSAGE value="Changes" />
     <MESSAGE value="passed one basic" />
-    <option name="LAST_COMMIT_MESSAGE" value="passed one basic" />
+    <MESSAGE value="Fixed a few bugs still only one test passed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a few bugs still only one test passed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

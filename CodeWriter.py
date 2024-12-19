@@ -159,6 +159,7 @@ class CodeWriter:
                 self.file.write("M=D\n")
                 self.file.write("@SP\n")
                 self.file.write("M=M+1\n")
+
             elif 'argument' in segment :
                 self.file.write("@" + str(index) + "\n")
                 self.file.write("D=A\n")
@@ -170,6 +171,7 @@ class CodeWriter:
                 self.file.write("M=D\n")
                 self.file.write("@SP\n")
                 self.file.write("M=M+1\n")
+
             elif 'this' in segment :
                 self.file.write("@" + str(index) + "\n")
                 self.file.write("D=A\n")
@@ -322,7 +324,7 @@ class CodeWriter:
         for i in range(num_local_vars+1):
             self.file.write("@LCL\n")
             self.file.write("D=M\n")
-            self.file.write(f"@{i}")
+            self.file.write(f"@{i}\n")
             self.file.write("A=D+A\n")
             self.file.write("M=0\n")
             self.file.write("@SP\n")
@@ -344,7 +346,6 @@ class CodeWriter:
         self.file.write("D;JNE\n")
 
     def write_call(self, function_name: str, num_args: int):
-        self.label_counter += 1
         self.file.write(f"// call {function_name} {num_args}\n")
         self.file.write(f"@{function_name}$ret.{self.label_counter}\n")
         self.file.write("D=A\n")
@@ -353,6 +354,7 @@ class CodeWriter:
         self.file.write("M=D\n")
         self.file.write("@SP\n")
         self.file.write("M=M+1\n")
+        self.label_counter += 1
         for string in ["LCL", "ARG", "THIS", "THAT"]:
             self.file.write(f"@{string}\n")
             self.file.write("D=M\n")
