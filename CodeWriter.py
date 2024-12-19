@@ -320,8 +320,13 @@ class CodeWriter:
         if num_local_vars is None:
             num_local_vars = 0
         for i in range(num_local_vars):
-            self.write_push_pop("push", "local", 0)
-
+            self.file.write("@LCL\n")
+            self.file.write("D=M\n")
+            self.file.write(f"@{i}\n")
+            self.file.write("A=D+A\n")
+            self.file.write("M=0\n")
+            self.file.write("@SP\n")
+            self.file.write("M=M+1\n")
 
     def write_label(self, label: str):
         self.file.write(f"({label})\n")
@@ -334,7 +339,6 @@ class CodeWriter:
         self.file.write("@SP\n")
         self.file.write("AM=M-1\n")
         self.file.write("D=M\n")
-        self.file.write("A=A-1\n")
         self.file.write(f"@{label}\n")
         self.file.write("D;JNE\n")
 
@@ -381,8 +385,8 @@ class CodeWriter:
         self.file.write("M=D\n")
 
         # retAdd = endFrame - 5
-        # self.file.write("@endFrame\n")
-        # self.file.write("D=M\n")
+        self.file.write("@endFrame\n")
+        self.file.write("D=M\n")
         self.file.write("@5\n")
         self.file.write("A=D-A\n")
         self.file.write("D=M\n")
@@ -406,16 +410,12 @@ class CodeWriter:
         self.file.write("M=D\n")
         for i, string in enumerate(["THAT", "THIS", "ARG", "LCL"], start=1):
             self.file.write("@endFrame\n")
+            self.file.write("AM=M-1\n")
             self.file.write("D=M\n")
             self.file.write(f"@{i}\n")
-            self.file.write("A=D-A\n")
-            self.file.write("D=M\n")
-            self.file.write(f"@{string}\n")
             self.file.write("M=D\n")
         self.file.write(f"@retAddr\n")
-        # Added the next line from YC and Liram
         self.file.write("A=M\n")
-
         self.file.write("0;JMP\n")
 
     def sys_init(self):
