@@ -22,7 +22,7 @@ class Main:
             self.output_file = CodeWriter(self.path)
 
     def main(self):
-        self.output_file.boot_strap()
+        self.output_file.sys_init()
         while self.input_file.has_more_lines():
             self.input_file.advance()
             print(self.input_file.has_more_lines())

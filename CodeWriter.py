@@ -15,7 +15,7 @@ class CodeWriter:
         self.label_counter = 0
 
     def set_file_name (self, fileName: str):
-        fileName = fileName[:fileName.index('.')]
+        self.fileName = fileName[:fileName.index('.')]
 
     def write_add(self):
         self.file.write(
@@ -159,7 +159,6 @@ class CodeWriter:
                 self.file.write("M=D\n")
                 self.file.write("@SP\n")
                 self.file.write("M=M+1\n")
-
             elif 'argument' in segment :
                 self.file.write("@" + str(index) + "\n")
                 self.file.write("D=A\n")
@@ -171,7 +170,6 @@ class CodeWriter:
                 self.file.write("M=D\n")
                 self.file.write("@SP\n")
                 self.file.write("M=M+1\n")
-
             elif 'this' in segment :
                 self.file.write("@" + str(index) + "\n")
                 self.file.write("D=A\n")
@@ -321,14 +319,9 @@ class CodeWriter:
         self.file.write(f"({function_name})\n")
         if num_local_vars is None:
             num_local_vars = 0
-        for i in range(num_local_vars+1):
-            self.file.write("@LCL\n")
-            self.file.write("D=M\n")
-            self.file.write(f"@{i}\n")
-            self.file.write("A=D+A\n")
-            self.file.write("M=0\n")
-            self.file.write("@SP\n")
-            self.file.write("M=M+1\n")
+        for i in range(num_local_vars):
+            self.write_push_pop("push", "local", 0)
+
 
     def write_label(self, label: str):
         self.file.write(f"({label})\n")
@@ -339,24 +332,25 @@ class CodeWriter:
 
     def write_if(self, label: str):
         self.file.write("@SP\n")
-        self.file.write("M=M-1\n")
-        self.file.write("A=M\n")
+        self.file.write("AM=M-1\n")
         self.file.write("D=M\n")
+        self.file.write("A=A-1\n")
         self.file.write(f"@{label}\n")
         self.file.write("D;JNE\n")
 
     def write_call(self, function_name: str, num_args: int):
+        self.label_counter += 1
+        new_label = f"{function_name}$ret.{self.label_counter}"
         self.file.write(f"// call {function_name} {num_args}\n")
-        self.file.write(f"@{function_name}$ret.{self.label_counter}\n")
+        self.file.write(f"@{new_label}\n")
         self.file.write("D=A\n")
         self.file.write("@SP\n")
         self.file.write("A=M\n")
         self.file.write("M=D\n")
         self.file.write("@SP\n")
         self.file.write("M=M+1\n")
-        self.label_counter += 1
-        for string in ["LCL", "ARG", "THIS", "THAT"]:
-            self.file.write(f"@{string}\n")
+        for segment in ["LCL", "ARG", "THIS", "THAT"]:
+            self.file.write(f"@{segment}\n")
             self.file.write("D=M\n")
             self.file.write("@SP\n")
             self.file.write("A=M\n")
@@ -377,7 +371,7 @@ class CodeWriter:
         self.file.write("M=D\n")
         self.file.write(f"@{function_name}\n")
         self.file.write("0;JMP\n")
-        self.file.write(f"({function_name}$ret.{self.label_counter})\n")
+        self.file.write(f"({new_label})\n")
 
     def write_return(self):
         self.file.write("// return call")
@@ -385,13 +379,21 @@ class CodeWriter:
         self.file.write("D=M\n")
         self.file.write("@endFrame\n")
         self.file.write("M=D\n")
-        self.file.write("@endFrame\n")
-        self.file.write("D=M\n")
+
+        # retAdd = endFrame - 5
+        # self.file.write("@endFrame\n")
+        # self.file.write("D=M\n")
         self.file.write("@5\n")
         self.file.write("A=D-A\n")
         self.file.write("D=M\n")
         self.file.write("@retAddr\n")
         self.file.write("M=D\n")
+
+        # # Arg = pop()
+        # self.file.write("D=M\n")
+        # self.file.write("@ARG\n")
+
+        # Not sure about this
         self.file.write("@SP\n")
         self.file.write("AM=M-1\n")
         self.file.write("D=M\n")
@@ -411,9 +413,12 @@ class CodeWriter:
             self.file.write(f"@{string}\n")
             self.file.write("M=D\n")
         self.file.write(f"@retAddr\n")
+        # Added the next line from YC and Liram
+        self.file.write("A=M\n")
+
         self.file.write("0;JMP\n")
 
-    def boot_strap(self):
+    def sys_init(self):
         self.file.write("@256\n")
         self.file.write("D=A\n")
         self.file.write("@SP\n")
