@@ -19,10 +19,10 @@ class Main:
                         if not full_file_path.endswith("dir.vm"):
                             dir_file.write(vm_file.read())
             self.input_file = Parser(dir_file_path)
-            self.output_file = CodeWriter(dir_file_path)
+            self.output_file = CodeWriter(dir_file_path, self.input_file.getname())
         else:
             self.input_file = Parser(self.path)
-            self.output_file = CodeWriter(self.path)
+            self.output_file = CodeWriter(self.path, self.input_file.getname())
 
     def main(self):
         if self.vm_counter >= 1 or os.path.isdir(self.path):

@@ -1,7 +1,7 @@
 import os
 
 class CodeWriter:
-    def __init__(self, output_file: str):
+    def __init__(self, output_file: str, file_name: str = None):
         """
         Initializes the CodeWriter to write assembly code to the specified file.
 
@@ -13,6 +13,7 @@ class CodeWriter:
         self.file = open(normalized_path, 'w')
         # self.jump_loop = 0
         self.label_counter = 0
+        self.file_name = file_name if file_name else self.file_base_name
 
     def set_file_name (self, fileName: str):
         self.fileName = fileName[:fileName.index('.')]
@@ -219,7 +220,7 @@ class CodeWriter:
                     self.file.write("@SP\n")
                     self.file.write("M=M+1\n")
             else:
-                self.file.write(f"@{self.file_base_name}.{index}\n")
+                self.file.write(f"@{self.file_name}.{index}\n")
                 self.file.write("D=M\n")
                 self.file.write("@SP\n")
                 self.file.write("A=M\n")
@@ -287,7 +288,7 @@ class CodeWriter:
                 self.file.write("@SP\n")
                 self.file.write("AM=M-1\n")
                 self.file.write("D=M\n")
-                self.file.write(f"@{self.file_base_name}.{index}\n")
+                self.file.write(f"@{self.file_name}.{index}\n")
                 self.file.write("M=D\n")
             elif 'temp' in segment :
                 address = 5 + index

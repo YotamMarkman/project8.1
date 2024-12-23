@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 
 class Constant(Enum):
     """
@@ -112,3 +113,9 @@ class Parser:
                 return int(self.current_command.split()[2])
             except(IndexError, ValueError):
                  return 0
+
+    def getname(self) -> str:
+            """
+            Returns the name of the current VM file being processed.
+            """
+            return os.path.basename(self.filename)
