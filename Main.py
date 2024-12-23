@@ -25,14 +25,11 @@ class Main:
             self.output_file = CodeWriter(self.path)
 
     def main(self):
-        count = 0
-        if self.vm_counter > 0 or os.path.isdir(self.path):
+        if self.vm_counter >= 1 or os.path.isdir(self.path):
             self.output_file.sys_init()
         while self.input_file.has_more_lines():
             self.input_file.advance()
             command_type = self.input_file.command_type().value
-            print(f"------ {command_type} ------" ,str(count))
-            count += 1
             if command_type == 'C_ARITHMETIC':
                 self.output_file.write_arithmetic(self.input_file.arg1())
 

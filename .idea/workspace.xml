@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="little changes">
-      <change afterPath="$PROJECT_DIR$/FibonnaciElement/Main.vm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FibonnaciElement/Sys.vm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="a few changes still elements doesn't work">
+      <change afterPath="$PROJECT_DIR$/Passed_Tests/Sys.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StaticTest/Class1.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StaticTest/Class2.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StaticTest/Sys.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWriter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FibonacciSeries.vm" beforeDir="false" afterPath="$PROJECT_DIR$/Passed_Tests/FibonacciSeries.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimpleFunction.vm" beforeDir="false" afterPath="$PROJECT_DIR$/Passed_Tests/SimpleFunction.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sys.vm" beforeDir="false" afterPath="$PROJECT_DIR$/Passed_Tests/NestedCall.vm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +98,7 @@
       <workItem from="1734602935510" duration="160000" />
       <workItem from="1734606773940" duration="2175000" />
       <workItem from="1734968312348" duration="6743000" />
-      <workItem from="1734975420388" duration="5366000" />
+      <workItem from="1734975420388" duration="10685000" />
     </task>
     <task id="LOCAL-00001" summary="Parser.py API">
       <option name="closed" value="true" />
@@ -186,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734608676258</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="a few changes still elements doesn't work">
+      <option name="closed" value="true" />
+      <created>1734982771779</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1734982771779</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +223,8 @@
     <MESSAGE value="Fixed a few bugs still only one test passed" />
     <MESSAGE value="nothing" />
     <MESSAGE value="little changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="little changes" />
+    <MESSAGE value="a few changes still elements doesn't work" />
+    <option name="LAST_COMMIT_MESSAGE" value="a few changes still elements doesn't work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
