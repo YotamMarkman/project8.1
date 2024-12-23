@@ -76,9 +76,9 @@ class Parser:
             return Constant.C_PUSH
         elif "label" in line:
             return Constant.C_LABEL
-        elif "if_goto" in line:
+        elif "goto" in line and "if" not in line:
             return Constant.C_GOTO
-        elif "goto" in line:
+        elif "if-goto" in line:
             return Constant.C_IF
         elif "function" in line:
             return Constant.C_FUNCTION
@@ -107,5 +107,8 @@ class Parser:
 
         :return: The second argument of the command as an integer.
         """
-        if self.command_type() in [Constant.C_POP, Constant.C_PUSH]:
-            return int(self.current_command.split()[2])
+        if self.command_type() in [Constant.C_POP, Constant.C_PUSH, Constant.C_FUNCTION, Constant.C_CALL]:
+            try:
+                return int(self.current_command.split()[2])
+            except(IndexError, ValueError):
+                 return 0

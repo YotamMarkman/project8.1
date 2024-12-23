@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="Fixed a few bugs still only one test passed">
-      <change afterPath="$PROJECT_DIR$/prob.py" afterDir="false" />
+    <list default="true" id="c5d4c18a-4ca6-4541-84dc-03c464bef684" name="Changes" comment="little changes">
+      <change afterPath="$PROJECT_DIR$/FibonnaciElement/Main.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FibonnaciElement/Sys.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodeWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodeWriter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,8 +71,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.180" />
-        <option value="bundled-python-sdk-85c76a3b01b3-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.180" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.220" />
+        <option value="bundled-python-sdk-0fc6c617c4bd-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.220" />
       </set>
     </attachedChunks>
   </component>
@@ -90,6 +93,10 @@
       <workItem from="1734432397736" duration="9000" />
       <workItem from="1734448917368" duration="2503000" />
       <workItem from="1734522998349" duration="72000" />
+      <workItem from="1734602935510" duration="160000" />
+      <workItem from="1734606773940" duration="2175000" />
+      <workItem from="1734968312348" duration="6743000" />
+      <workItem from="1734975420388" duration="5366000" />
     </task>
     <task id="LOCAL-00001" summary="Parser.py API">
       <option name="closed" value="true" />
@@ -155,7 +162,31 @@
       <option name="project" value="LOCAL" />
       <updated>1734387550591</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="nothing">
+      <option name="closed" value="true" />
+      <created>1734603001986</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1734603001986</updated>
+    </task>
+    <task id="LOCAL-00010" summary="nothing">
+      <option name="closed" value="true" />
+      <created>1734603078634</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1734603078634</updated>
+    </task>
+    <task id="LOCAL-00011" summary="little changes">
+      <option name="closed" value="true" />
+      <created>1734608676258</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734608676258</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +211,9 @@
     <MESSAGE value="Changes" />
     <MESSAGE value="passed one basic" />
     <MESSAGE value="Fixed a few bugs still only one test passed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a few bugs still only one test passed" />
+    <MESSAGE value="nothing" />
+    <MESSAGE value="little changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="little changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
