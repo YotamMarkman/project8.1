@@ -12,7 +12,6 @@ class CodeWriter:
         """
         self.current_file_name = ""
         normalized_path = os.path.normpath(output_file)
-        normalized_path = normalized_path.split('.')[0] + '.asm'
         self.file_base_name = os.path.splitext(os.path.basename(output_file))[0]
         self.file = open(normalized_path, 'w')
         self.label_counter = 0
