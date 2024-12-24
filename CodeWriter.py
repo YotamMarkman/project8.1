@@ -1,6 +1,9 @@
 import os
+from multiprocessing.forkserver import set_forkserver_preload
+
 
 class CodeWriter:
+    call_counter = 0
     def __init__(self, output_file: str, file_name: str = None):
         """
         Initializes the CodeWriter to write assembly code to the specified file.
@@ -12,12 +15,12 @@ class CodeWriter:
         normalized_path = normalized_path.split('.')[0] + '.asm'
         self.file_base_name = os.path.splitext(os.path.basename(output_file))[0]
         self.file = open(normalized_path, 'w')
-        # self.jump_loop = 0
         self.label_counter = 0
-        # self.file_name = file_name if file_name else self.file_base_name
+
+        self.set_file_name(output_file)
 
     def set_file_name (self, file_name: str):
-        self.current_file_name = file_name
+        self.current_file_name = os.path.splitext(os.path.basename(file_name))[0]
 
     def write_add(self):
         self.file.write(
@@ -120,7 +123,6 @@ class CodeWriter:
             'neg': self.write_neg,
             'not': self.write_not,
         }
-
         command = command.strip()
         self.file.write(f"// {command}\n")
         if command in two_args_commands:
@@ -221,7 +223,7 @@ class CodeWriter:
                     self.file.write("@SP\n")
                     self.file.write("M=M+1\n")
             else:
-                self.file.write(f"@{self.file_base_name}.{index}\n")
+                self.file.write(f"@{self.current_file_name}.{index}\n")
                 self.file.write("D=M\n")
                 self.file.write("@SP\n")
                 self.file.write("A=M\n")
@@ -348,8 +350,8 @@ class CodeWriter:
     def write_call(self, function_name: str, num_args: int):
         if num_args is None:
             num_args = 0
-        new_label = f"{function_name}$ret.{self.label_counter}"
-        self.label_counter += 1
+        new_label = f"{function_name}$ret.{CodeWriter.call_counter}"
+        CodeWriter.call_counter += 1
         self.file.write(f"// call {function_name} {num_args}\n")
         self.file.write(f"@{new_label}\n")
         self.file.write("D=A\n")
@@ -391,26 +393,15 @@ class CodeWriter:
         self.file.write("D=M\n")
         self.file.write("@R13\n")
         self.file.write("M=D\n")
-
-        # retAdd = endFrame - 5
-        # self.file.write("@endFrame\n")
-        # self.file.write("D=M\n")
         self.file.write("@5\n")
         self.file.write("A=D-A\n")
         self.file.write("D=M\n")
         self.file.write("@R14\n")
         self.file.write("M=D\n")
-
-        # # Arg = pop()
-        # self.file.write("D=M\n")
-        # self.file.write("@ARG\n")
-
-        # Not sure about this
         self.file.write("@SP\n")
         self.file.write("M=M-1\n")
         self.file.write("A=M\n")
         self.file.write("D=M\n")
-
         self.file.write("@ARG\n")
         self.file.write("A=M\n")
         self.file.write("M=D\n")

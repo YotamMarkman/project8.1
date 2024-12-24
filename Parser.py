@@ -83,7 +83,7 @@ class Parser:
             return Constant.C_IF
         elif "function" in line:
             return Constant.C_FUNCTION
-        elif "return" in line:
+        elif 'return' in line and 'add' not in line:
             return Constant.C_RETURN
         elif "call" in line:
             return Constant.C_CALL

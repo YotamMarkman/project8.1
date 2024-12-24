@@ -1,71 +1,50 @@
+from VMTranslator import VMTranslator
+import os
 import sys
-from itertools import count
-
-from CodeWriter import *
-from Parser import *
 
 
-class Main:
-    def __init__(self):
-        self.vm_counter = 0
-        self.path = sys.argv[1]
-        if os.path.isdir(self.path):
-            dir_file_path = os.path.join(self.path, "dir.vm")
-            open(dir_file_path, 'w').close()
-            for file in os.listdir(self.path):
-                if file.endswith(".vm"):
-                    self.vm_counter += 1
-                    full_file_path = os.path.join(self.path, file)
-                    with open(full_file_path, 'r') as vm_file, open(dir_file_path, 'a') as dir_file:
-                        if not full_file_path.endswith("dir.vm"):
-                            dir_file.write(vm_file.read())
-            self.input_file = Parser(dir_file_path)
-            self.output_file = CodeWriter(dir_file_path, self.input_file.getname())
+def main():
+    input_path = sys.argv[1]
 
+    if os.path.isfile(input_path):
+        translator = VMTranslator(input_path)
+        translator.translate()
 
-            for file in os.listdir(self.path):
-                if file.endswith(".vm") and not file.endswith("dir.vm"):
-                    self.output_file.set_file_name(file.replace(".vm", ""))
+    elif os.path.isdir(input_path):
+        vm_files = [os.path.join(input_path, f) for f in os.listdir(input_path) if f.endswith('.vm')]
+        num_of_vm_files = len(vm_files)
+        if num_of_vm_files>1:
+            if not vm_files:
+                print("No .vm files found in the directory!")
+                return
+            dir_name = os.path.basename(input_path)
+            output_file_path = os.path.join(input_path, f"{dir_name}.asm")
+
+            for i, vm_file_path in enumerate(vm_files):
+                translator = VMTranslator(vm_file_path)
+
+                if i==0:
+                    translator.write_bootstrap()
+
+                translator.translate()
+
+            with open(output_file_path, 'w') as output_file:
+                for vm_file_path in vm_files:
+                    asm_file_path = vm_file_path.replace('.vm', '.asm')
+                    with open(asm_file_path, 'r') as asm_file:
+                        output_file.write(asm_file.read() + "\n")
+                    os.remove(asm_file_path)
         else:
-            self.input_file = Parser(self.path)
-            self.output_file = CodeWriter(self.path, self.input_file.getname())
-            self.output_file.set_file_name(self.input_file.getname().replace(".vm", ""))
+            vm_file_path = vm_files[0]
+            translator = VMTranslator(vm_file_path)
+            translator.translate()
 
-    def main(self):
-        if self.vm_counter >= 1 or os.path.isdir(self.path):
-            self.output_file.sys_init()
-        while self.input_file.has_more_lines():
-            self.input_file.advance()
-            command_type = self.input_file.command_type().value
-            if command_type == 'C_ARITHMETIC':
-                self.output_file.write_arithmetic(self.input_file.arg1())
+            dir_name = os.path.basename(input_path)
+            output_file_path = os.path.join(input_path, f"{dir_name}.asm")
 
-            elif command_type == 'C_PUSH' or command_type == 'C_POP':
-                self.output_file.write_push_pop(
-                    command_type,
-                    self.input_file.arg1(),
-                    self.input_file.arg2(), )
-
-            elif command_type == 'C_LABEL':
-                self.output_file.write_label(self.input_file.arg1())
-
-            elif command_type == 'C_GOTO':
-                self.output_file.write_go_to(self.input_file.arg1())
-
-            elif command_type == 'C_IF':
-                self.output_file.write_if(self.input_file.arg1())
-
-            elif command_type == 'C_FUNCTION':
-                self.output_file.write_function(self.input_file.arg1(), self.input_file.arg2())
-
-            elif command_type == 'C_RETURN':
-                self.output_file.write_return()
-
-            else:
-                self.output_file.write_call(self.input_file.arg1(), self.input_file.arg2())
-        self.output_file.close()
+            asm_file_path = vm_file_path.replace('.vm', '.asm')
+            os.rename(asm_file_path, output_file_path)
 
 
 if __name__ == "__main__":
-    translator = Main()
-    translator.main()
+    main()
