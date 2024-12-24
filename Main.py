@@ -4,6 +4,7 @@ from itertools import count
 from CodeWriter import *
 from Parser import *
 
+
 class Main:
     def __init__(self):
         self.vm_counter = 0
@@ -20,9 +21,15 @@ class Main:
                             dir_file.write(vm_file.read())
             self.input_file = Parser(dir_file_path)
             self.output_file = CodeWriter(dir_file_path, self.input_file.getname())
+
+
+            for file in os.listdir(self.path):
+                if file.endswith(".vm") and not file.endswith("dir.vm"):
+                    self.output_file.set_file_name(file.replace(".vm", ""))
         else:
             self.input_file = Parser(self.path)
             self.output_file = CodeWriter(self.path, self.input_file.getname())
+            self.output_file.set_file_name(self.input_file.getname().replace(".vm", ""))
 
     def main(self):
         if self.vm_counter >= 1 or os.path.isdir(self.path):
@@ -37,7 +44,7 @@ class Main:
                 self.output_file.write_push_pop(
                     command_type,
                     self.input_file.arg1(),
-                    self.input_file.arg2(),)
+                    self.input_file.arg2(), )
 
             elif command_type == 'C_LABEL':
                 self.output_file.write_label(self.input_file.arg1())
@@ -57,6 +64,7 @@ class Main:
             else:
                 self.output_file.write_call(self.input_file.arg1(), self.input_file.arg2())
         self.output_file.close()
+
 
 if __name__ == "__main__":
     translator = Main()

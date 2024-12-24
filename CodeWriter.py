@@ -7,16 +7,17 @@ class CodeWriter:
 
         :param output_file: The path to the output assembly file.
         """
+        self.current_file_name = ""
         normalized_path = os.path.normpath(output_file)
         normalized_path = normalized_path.split('.')[0] + '.asm'
         self.file_base_name = os.path.splitext(os.path.basename(output_file))[0]
         self.file = open(normalized_path, 'w')
         # self.jump_loop = 0
         self.label_counter = 0
-        self.file_name = file_name if file_name else self.file_base_name
+        # self.file_name = file_name if file_name else self.file_base_name
 
-    def set_file_name (self, fileName: str):
-        self.fileName = fileName[:fileName.index('.')]
+    def set_file_name (self, file_name: str):
+        self.current_file_name = file_name
 
     def write_add(self):
         self.file.write(
@@ -220,7 +221,7 @@ class CodeWriter:
                     self.file.write("@SP\n")
                     self.file.write("M=M+1\n")
             else:
-                self.file.write(f"@{self.file_name}.{index}\n")
+                self.file.write(f"@{self.file_base_name}.{index}\n")
                 self.file.write("D=M\n")
                 self.file.write("@SP\n")
                 self.file.write("A=M\n")
@@ -288,7 +289,7 @@ class CodeWriter:
                 self.file.write("@SP\n")
                 self.file.write("AM=M-1\n")
                 self.file.write("D=M\n")
-                self.file.write(f"@{self.file_name}.{index}\n")
+                self.file.write(f"@{self.file_base_name}.{index}\n")
                 self.file.write("M=D\n")
             elif 'temp' in segment :
                 address = 5 + index
